@@ -4,6 +4,14 @@
     {
       "src": "webpack.config.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "dist/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
