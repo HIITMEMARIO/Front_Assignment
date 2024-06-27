@@ -11,28 +11,37 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
-        options: {
-          minimize: true,
-        },
+        use: [
+          {
+            loader: 'html-loader',
+            options: { minimize: true },
+          },
+        ],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      filename: 'index.html',
     }),
   ],
   devServer: {
-    host: 'localhost',
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
+    compress: true,
     port: 3000,
     open: true,
   },
