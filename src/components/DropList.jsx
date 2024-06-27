@@ -19,25 +19,23 @@ function DropList({ columns, selectedItems, setSelectedItems }) {
             <Column
               ref={provided.innerRef}
               {...provided.droppableProps}
-              isDraggingOver={snapshot.$isDraggingOver}
+              isDraggingOver={snapshot.isDraggingOver}
             >
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => {
-                    return (
-                      <Item
-                        onClick={() => toggleSelection(item.id)}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        isDragging={snapshot.$isDragging}
-                        $isSelected={selectedItems.includes(item.id)}
-                        $isOutsideDropArea={!snapshot.$draggingOver}
-                      >
-                        {item.content}
-                      </Item>
-                    );
-                  }}
+                  {(provided, snapshot) => (
+                    <Item
+                      onClick={() => toggleSelection(item.id)}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      isDragging={snapshot.isDragging}
+                      isSelected={selectedItems.includes(item.id)}
+                      isOutsideDropArea={!snapshot.draggingOver}
+                    >
+                      {item.content}
+                    </Item>
+                  )}
                 </Draggable>
               ))}
               {provided.placeholder}
@@ -63,7 +61,7 @@ const Wrapper = styled.div`
 `;
 
 const Column = styled.div`
-  background: ${(props) => (props.$isDraggingOver ? 'lightblue' : 'lightgrey')};
+  background: ${(props) => (props.isDraggingOver ? 'lightblue' : 'lightgrey')};
   padding: ${GRID}px;
   width: 250px;
   height: 63vh;
@@ -75,11 +73,11 @@ const Item = styled.div`
   padding: ${GRID * 2}px;
   margin: 0 0 ${GRID}px 0;
   background: ${(props) =>
-    props.$isOutsideDropArea && props.$isDragging
+    props.isOutsideDropArea && props.isDragging
       ? 'red'
-      : props.$isSelected
+      : props.isSelected
       ? 'blue'
-      : props.$isDragging
+      : props.isDragging
       ? 'lightgreen'
       : 'grey'};
   color: white;
