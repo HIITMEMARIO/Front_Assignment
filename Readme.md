@@ -44,3 +44,5 @@
 - 드래그 앤 드롭 기능의 정확한 구현
 - 코드의 가독성 및 구조화
 - 사용자 경험 및 인터페이스 디자인
+# Front_Assignment
+# Front_Assignment
